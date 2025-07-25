@@ -1,11 +1,13 @@
 const express = require('express')
 const subscriptonRouter = express.Router()
+const {createSubscription} = require('../controllers/subscription.controller')
+const authorize = require('../middlewares/auth.middleware')
 
 subscriptonRouter.get('/',(req,res)=>res.send('get all subscriptions'))
 
 subscriptonRouter.get('/:id',(req,res)=>res.send('get subscription details'))
 
-subscriptonRouter.post('/',(req,res)=>res.send('create subscriptions'))
+subscriptonRouter.post('/',authorize,createSubscription)
 
 subscriptonRouter.put('/:id',(req,res)=>res.send('update a subscription'))
 
