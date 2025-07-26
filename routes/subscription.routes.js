@@ -1,6 +1,6 @@
 const express = require('express')
 const subscriptonRouter = express.Router()
-const {createSubscription} = require('../controllers/subscription.controller')
+const {createSubscription,getUsersSubscriptions} = require('../controllers/subscription.controller')
 const authorize = require('../middlewares/auth.middleware')
 
 subscriptonRouter.get('/',(req,res)=>res.send('get all subscriptions'))
@@ -13,7 +13,7 @@ subscriptonRouter.put('/:id',(req,res)=>res.send('update a subscription'))
 
 subscriptonRouter.delete('/:id',(req,res)=>res.send('delete a subscription'))
 
-subscriptonRouter.get('/user/:id',(req,res)=>res.send('get all user subscriptions'))
+subscriptonRouter.get('/user/:id',authorize,getUsersSubscriptions)
 
 subscriptonRouter.put('/:id/cancel',(req,res)=>res.send('cancel subscriptions'))
 

@@ -24,7 +24,7 @@ exports.signUp = async(req,res,next)=>{
     const token = jwt.sign({userId:newUsers[0]._id},process.env.JWT_SECRET,{
         expiresIn:process.env.JWT_EXPIRES_IN
     })
-    session.commitTransaction()
+   await session.commitTransaction()
     session.endSession()
     res.status(201).json({
         success:true,
@@ -41,7 +41,7 @@ exports.signUp = async(req,res,next)=>{
   }
 } 
 exports.signIn = async(req,res,next)=>{
-    try {
+    try { 
         const {email,password}= req.body;
         const user = await User.findOne({email})
         if(!user){
